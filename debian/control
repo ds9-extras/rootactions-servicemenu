@@ -1,0 +1,12 @@
+Source: rootactions-servicemenu
+Section: admin
+Priority: optional
+Maintainer: Kubicle <kubicle@gawab.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: rootactions-servicemenu
+Architecture: all
+Depends: perl, kdesudo, dolphin, kate
+Description: A Root actions service menu in dolphin and konquor for Linux Mint KDE Edition
+ A Root actions service menu in dolphin and konquor for Linux Mint KDE Edition

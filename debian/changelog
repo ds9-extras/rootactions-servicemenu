@@ -1,0 +1,63 @@
+rootactions-servicemenu (2.7.3-0netrunner2) enigma; urgency=low
+
+  * Initial enigma release
+
+ -- Frédéric Gaudet <fred@linuxmint.com>  Wed, 19 Sep 2012 10:28:36 +0200
+
+rootactions-servicemenu (2.7.3-0netrunner1) dryland-se; urgency=low
+
+  * Initial dryland-se release
+
+ -- Frederic Gaudet <fred@linuxmint.com>  Tue, 14 Aug 2012 22:13:00 +0200
+
+rootactions-servicemenu (2.7.2-0mint1) lisa-kde; urgency=low
+
+  * Initial lisa release
+
+ -- Frederic Gaudet <fred@linuxmint.com>  Tue, 06 Dec 2011 16:33:00 +0000
+
+rootactions-servicemenu (2.7.1-0mint1) katya-kde; urgency=low
+
+  * Initial katya release.
+  * Update to version 2.7.1 of rootactions.
+
+ -- Jamie Birse <boo.birse@gmail.com>  Sun, 08 May 2011 07:18:59 +0000
+
+rootactions-servicemenu (2.5.92-0mint1) julia-kde; urgency=low
+
+  * Initial julia release.
+  * Update to version 2.5.92 of rootactions.
+
+ -- Jamie Birse <boo.birse@gmail.com>  Thu, 18 Nov 2010 08:20:56 +0000
+
+rootactions-servicemenu (2.4.10-0mint1) isadora-kde; urgency=low
+
+  * Update to version 2.4.10 of rootactions.
+
+ -- Jamie Birse <boo.birse@gmail.com>  Sat, 08 May 2010 22:21:49 +0000
+
+rootactions-servicemenu (2.4.7.1-0mint4) isadora-kde; urgency=low
+
+  * Initial isadora release.
+
+ -- Jamie Birse <boo.birse@gmail.com>  Sat, 10 Apr 2010 13:19:34 +0000
+
+rootactions-servicemenu (2.4.7.1-0mint3) helena-kde; urgency=low
+
+  * Removed kreadconfig dependency.
+
+ -- Jamie Birse <boo.birse@gmail.com>  Tue, 29 Dec 2009 14:00:47 +0000
+
+rootactions-servicemenu (2.4.7.1-0mint2) helena-kde; urgency=low
+
+  * Removed kdialog dependency.
+
+ -- Jamie Birse <boo.birse@gmail.com>  Tue, 29 Dec 2009 13:53:26 +0000
+
+rootactions-servicemenu (2.4.7.1-0mint1) helena-kde; urgency=low
+
+  * Initial Helena KDE release.
+  * A packaging of rootactions_servicemenu from kde-look.
+
+ -- Jamie Birse <boo.birse@gmail.com>  Tue, 29 Dec 2009 13:37:00 +0000
+

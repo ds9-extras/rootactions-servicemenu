@@ -1,0 +1,5 @@
+d638de90003495bff4e486607bd4fb89  usr/bin/rootactions-servicemenu.pl
+9ea290b23ec6b74c640a2c46f346f1a1  usr/share/doc/rootactions-servicemenu/changelog.Debian.gz
+b4feea56ff87fe6514b7b06aeccd6612  usr/share/doc/rootactions-servicemenu/copyright
+03d172e8ca76b4a58489fb4f9df8a91a  usr/share/kde4/services/ServiceMenus/10-rootactionsfolders.desktop
+f2c8617ec7d0a75794bcf207fc06d82f  usr/share/kde4/services/ServiceMenus/11-rootactionsfiles.desktop

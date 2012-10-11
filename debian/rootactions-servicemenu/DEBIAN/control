@@ -1,0 +1,10 @@
+Package: rootactions-servicemenu
+Version: 2.7.3-0netrunner2
+Architecture: all
+Maintainer: Kubicle <kubicle@gawab.com>
+Installed-Size: 109
+Depends: perl, kdesudo, dolphin, kate
+Section: admin
+Priority: optional
+Description: A Root actions service menu in dolphin and konquor for Linux Mint KDE Edition
+ A Root actions service menu in dolphin and konquor for Linux Mint KDE Edition
