@@ -1,3 +1,9 @@
+rootactions-servicemenu (2.7.3-0netrunner3) dryland-te; urgency=low
+
+  * Initial Dryland TE release
+
+ -- Frédéric Gaudet <fred@linuxmint.com>  Fri, 12 Oct 2012 10:31:11 +0200
+
 rootactions-servicemenu (2.7.3-0netrunner2) enigma; urgency=low
 
   * Initial enigma release
