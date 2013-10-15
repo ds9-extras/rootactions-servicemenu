@@ -1,3 +1,10 @@
+rootactions-servicemenu (2.7.3-0netrunner4) saucy; urgency=low
+
+  * Bump version number for next Netrunner release
+  * Change distro name to saucy
+
+ -- Leszek Lesner <leszek@zevenos.com>  Tue, 15 Oct 2013 12:11:15 +0200
+
 rootactions-servicemenu (2.7.3-0netrunner3) dryland-te; urgency=low
 
   * Initial Dryland TE release
