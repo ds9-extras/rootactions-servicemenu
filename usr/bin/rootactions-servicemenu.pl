@@ -929,7 +929,7 @@ sub do_root_konsole {
 	   
 	   $APPNAME =~ tr/a-z/A-Z/ ;
 	   $WORKDIR = shift @ARGV ;
-	   exec "$TERMINAL --workdir \'$WORKDIR\' --caption \"$APPNAME $ROOTREMINDER\"" ;
+	   exec "$TERMINAL --workdir \'$WORKDIR\'" ;
 	   exit $?;
 	}
 }
@@ -997,7 +997,7 @@ sub do_open_with {
 	   shift;
 	   #Create Target file string
 	   $TARGET = join("' '", @ARGV) ;
-	   exec "$CPROGRAM --caption \"$APPNAME $ROOTREMINDER\" \'$TARGET\'" ;
+	   exec "$CPROGRAM \'$TARGET\'" ;
 	   exit $?;
 	}
 }
