@@ -900,6 +900,11 @@ else { $SUCOMMAND = "xdg-su -c"}
 $DIALOGCOMMAND = "$KDEBINPATH"."kdialog" ;
 $CONFIGCOMMAND = "$KDEBINPATH"."kreadconfig" ;
 
+# Check whether dbus-run-session (dbus 1.8.x) is available
+$DBUSRUN = "" ;
+if ( `which dbus-run-session` ) {
+	$DBUSRUN = "dbus-run-session"}
+
 
 #---Start root actions---
 $EXECNAME = $0 ;
@@ -929,7 +934,7 @@ sub do_root_konsole {
 	   
 	   $APPNAME =~ tr/a-z/A-Z/ ;
 	   $WORKDIR = shift @ARGV ;
-	   exec "$TERMINAL --workdir \'$WORKDIR\'" ;
+	   exec "$TERMINAL --nofork --workdir \'$WORKDIR\'" ;
 	   exit $?;
 	}
 }
@@ -997,9 +1002,16 @@ sub do_open_with {
 	   shift;
 	   #Create Target file string
 	   $TARGET = join("' '", @ARGV) ;
-	   exec "$CPROGRAM \'$TARGET\'" ;
-	   exit $?;
-	}
+	   
+	   # Fixed bug with qt5 applications not opening
+           # because they don't provide the kde-options like "--caption" any more
+           $OPTTEST = system "$CPROGRAM --help-kde" ;
+           if ( $OPTTEST eq 0 ) {
+              exec "$DBUSRUN $CPROGRAM --caption \"$APPNAME $ROOTREMINDER\" \'$TARGET\'" ; }
+           else {
+              exec "KDE_SESSION_VERSION=5 KDE_FULL_SESSION=true $DBUSRUN $CPROGRAM \'$TARGET\'" ; }
+           exit $?;
+        }
 }
 #---End open with subroutines---
 
