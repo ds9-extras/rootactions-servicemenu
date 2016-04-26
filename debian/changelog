@@ -1,4 +1,4 @@
-rootactions-servicemenu (2.7.3-0netrunner12)xenial ; urgency=medium
+rootactions-servicemenu (2.7.3-0netrunner12) xenial; urgency=medium
 
   * Updated to use pkexec
 
