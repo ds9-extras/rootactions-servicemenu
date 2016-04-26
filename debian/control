@@ -1,12 +1,13 @@
 Source: rootactions-servicemenu
 Section: admin
 Priority: optional
-Maintainer: Kubicle <kubicle@gawab.com>
-Build-Depends: debhelper (>= 5)
+Maintainer: Leszek Lesner <leszek@zevenos.com>
+Build-Depends: debhelper (>= 9)
 Standards-Version: 3.7.2
 
 Package: rootactions-servicemenu
 Architecture: all
-Depends: perl, kdesudo, dolphin, kate
-Description: A Root actions service menu in dolphin and konquor for Linux Mint KDE Edition
- A Root actions service menu in dolphin and konquor for Linux Mint KDE Edition
+Depends: perl, policykit-1, dolphin
+Recommends: kate
+Description: A Root actions service menu in dolphin
+ Allows you execute certain commands as root inside the filemanager.
