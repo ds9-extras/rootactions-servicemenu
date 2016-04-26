@@ -852,21 +852,7 @@ sub permission_dialog_msgs {
 
 #Find out the language used in kde
 sub get_kde_language {
-	if ( exists $ENV{KDEHOME}) {
-		$KDEGLOBALFILE = "$ENV{KDEHOME}/share/config/kdeglobals";
-	}
-	else {
-		$KDEGLOBALFILE = "~/.kde/share/config/kdeglobals";
-	}
-
-	# use kreadconfig to get the languages set for kde. Use cut to get only the primary language and discard encoding.
-	chomp($KDELANG = `$CONFIGCOMMAND --group Locale --key Language --file $KDEGLOBALFILE | cut -d ':' -f 1 | cut -d '.' -f 1`);
-
-	# If $KDEGLOBALFILE contains no language info, kreadconfig will print nothing. Read the LANG environment variable instead.
-	if( $KDELANG eq ""){
-		$KDELANG = $ENV{LANG};
-	}
-
+        $KDELANG = $ENV{LANG};
 	chomp($KDELANGSHT = substr("$KDELANG",0,2));
 	return 0;
 }
@@ -891,14 +877,15 @@ if ( $#ARGV lt 0 ) {
 &get_kde_path ;
 
 # Check whether kdesudo is installed, and use it instead of kdesu to get root privileges.
-if ( `which kdesudo` ) {
-	$SUCOMMAND = "$KDEBINPATH"."kdesudo -d --noignorebutton --"}
-elsif ( `which kdesu` ) {
-	$SUCOMMAND = "$KDEBINPATH"."kdesu -d -c"}
+#if ( `which kdesudo` ) {
+#	$SUCOMMAND = "$KDEBINPATH"."kdesudo -d --noignorebutton --"}
+#elsif ( `which kdesu` ) {
+#	$SUCOMMAND = "$KDEBINPATH"."kdesu -d -c"}
+if ( `which pkexec` ) {
+	$SUCOMMAND = "pkexec"}
 else { $SUCOMMAND = "xdg-su -c"}
 
 $DIALOGCOMMAND = "$KDEBINPATH"."kdialog" ;
-$CONFIGCOMMAND = "$KDEBINPATH"."kreadconfig" ;
 
 # Check whether dbus-run-session (dbus 1.8.x) is available
 $DBUSRUN = "" ;
@@ -916,7 +903,7 @@ $TARGET = join("' '", @ARGV) ;
 sub root_konsole_here {
 	$APPNAME = shift @ARGV ;
 	$WORKDIR = shift @ARGV ;
-	exec "$SUCOMMAND \"\'$EXECNAME\' do_root_konsole \'$APPNAME\' \'$WORKDIR\'\"";
+	exec "$SUCOMMAND \'$EXECNAME\' do_root_konsole \'$APPNAME\' \'$WORKDIR\'";
 	exit $?;
 }
 
@@ -947,7 +934,7 @@ sub custom_open_with {
 	$APPNAME = `$DIALOGCOMMAND --title "$OPENTITLE" --inputbox "$OPENMSG" program` ;
 	if ( $? eq 0 ) {
 	   chomp $APPNAME ;
-      	   exec "$SUCOMMAND \"\'$EXECNAME\' do_open_with \'$APPNAME\' \'$TARGET\'\"";
+      	   exec "$SUCOMMAND \'$EXECNAME\' do_open_with \'$APPNAME\' \'$TARGET\'";
 	   exit $?;
 	}
 }
@@ -981,7 +968,7 @@ sub open_with {
 		  $APPNAME = "kwrite"; }
 	}
 
-	exec "$SUCOMMAND \"\'$EXECNAME\' do_open_with \'$APPNAME\' \'$TARGET\'\"";
+	exec "$SUCOMMAND \'$EXECNAME\' do_open_with \'$APPNAME\' \'$TARGET\'";
 	exit $?; 
 }
 
@@ -1023,7 +1010,7 @@ sub root_copy {
 	   $NEWNAME = `$DIALOGCOMMAND --title "$COPYTITLE" --inputbox "$COPYMSG" \'$OLDNAME\'` ;
 	   chop $NEWNAME;
 	   if ( $? eq 0 && $OLDNAME ne $NEWNAME ) {
-	      exec "$SUCOMMAND \"\'$EXECNAME\' do_copy \'$OLDNAME\' \'$NEWNAME\'\"";
+	      exec "$SUCOMMAND \'$EXECNAME\' do_copy \'$OLDNAME\' \'$NEWNAME\'";
 	      exit $?;
 
 	   }
@@ -1053,7 +1040,7 @@ sub root_rename {
 	$TARGET = join("' '", @ARGV) ;
 	chomp($RENAMERPATH = `which $BATCHRENAMER`);	
 	if ( $#ARGV > 0 && -x $RENAMERPATH ) {
-	   exec "$SUCOMMAND \"\'$EXECNAME\' do_open_with \'$BATCHRENAMER\' \'$TARGET\'\"";
+	   exec "$SUCOMMAND \'$EXECNAME\' do_open_with \'$BATCHRENAMER\' \'$TARGET\'";
 	   exit $?;
 	}
 	# else we'll use a simple rename script
@@ -1063,7 +1050,7 @@ sub root_rename {
 	   $NEWNAME = `$DIALOGCOMMAND --title "$RENAMETITLE" --inputbox "$RENAMEMSG" \'$OLDNAME\'` ;
 	   chop $NEWNAME;
 	   if ( $? eq 0 && $OLDNAME ne $NEWNAME ) {
-	      exec "$SUCOMMAND \"\'$EXECNAME\' do_rename \'$OLDNAME\' \'$NEWNAME\'\"";
+	      exec "$SUCOMMAND \'$EXECNAME\' do_rename \'$OLDNAME\' \'$NEWNAME\'";
 	      exit $?;
 	   }
 	}
@@ -1088,7 +1075,7 @@ sub do_rename {
 
 #---Compress subroutines---
 sub root_compress {
-	exec "$SUCOMMAND \"\'$EXECNAME\' do_compress \'$TARGET\'\"";
+	exec "$SUCOMMAND \'$EXECNAME\' do_compress \'$TARGET\'";
 }
 
 sub do_compress {
@@ -1115,7 +1102,7 @@ sub root_delete {
 	   # kdesu will run the command as regular user if 'Ignore' is chosen from kdesu dialog.
 	   # To prevent unwanted deletion of files, we'll run 'do_delete' instead of 'rm -r', 'do delete'
 	   # will exit if it's run as normal user, therefore the files writable for user are safe when clicking 'Ignore'
-	   exec "$SUCOMMAND \"\'$EXECNAME\' do_delete \'$TARGET\'\"";
+	   exec "$SUCOMMAND \'$EXECNAME\' do_delete \'$TARGET\'";
 	}
 }
 
@@ -1143,7 +1130,7 @@ sub root_ownership {
         }
 
 	# Same as with delete, we don't want kdesu to run 'chown' when 'Ignore' is pressed in the kdesu dialog, so we use 'do_ownership' instead
-	exec "$SUCOMMAND \"\'$EXECNAME\' do_ownership \'$RECURSIVE\' 0:0 \'$TARGET\'\"";
+	exec "$SUCOMMAND \'$EXECNAME\' do_ownership \'$RECURSIVE\' 0:0 \'$TARGET\'";
 	exit $?;
 }
 
@@ -1161,7 +1148,7 @@ sub user_ownership {
 
 	#Create a list of user GIDs, so we can pick only the primary group
 	@GROUPS = split ' ', $);
-	exec "$SUCOMMAND \"\'$EXECNAME\' do_ownership \'$RECURSIVE\' $>:$GROUPS[0] \'$TARGET\'\"";
+	exec "$SUCOMMAND \'$EXECNAME\' do_ownership \'$RECURSIVE\' $>:$GROUPS[0] \'$TARGET\'";
 	exit $?;
 }
 
@@ -1182,7 +1169,7 @@ sub custom_ownership {
 
 	if ( $? eq 0 ) {
 	   chop $UIDGID;
-	   exec "$SUCOMMAND \"\'$EXECNAME\' do_ownership \'$RECURSIVE\' \'$UIDGID\' \'$TARGET\'\"";
+	   exec "$SUCOMMAND \'$EXECNAME\' do_ownership \'$RECURSIVE\' \'$UIDGID\' \'$TARGET\'";
 	   exit $?;
 	}
 }
@@ -1297,7 +1284,7 @@ sub root_permissions {
 		system "$DIALOGCOMMAND --title \'$SPCTITLE\' --warningcontinuecancel \'$SPCMSG\'";
 	}
 	if ( $? eq 0 ) {
-	      exec "$SUCOMMAND \"\'$EXECNAME\' do_permissions \'$RECURSIVE\' \'$CHMOD\' \'$TARGET\'\"";
+	      exec "$SUCOMMAND \'$EXECNAME\' do_permissions \'$RECURSIVE\' \'$CHMOD\' \'$TARGET\'";
 	      exit $?;
 	}
 }
